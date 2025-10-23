@@ -1,0 +1,14 @@
+# Flutter SDK archives
+flutter_*.tar.xz
+flutter_*.zip
+
+# Large binary files
+*.tar.xz
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
