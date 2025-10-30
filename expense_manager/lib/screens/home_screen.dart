@@ -36,11 +36,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       appBar: AppBar(
         title: const Text('Time Tracker'),
         backgroundColor: Colors.teal,
-        foregroundColor: Colors.black,
+        foregroundColor: Colors.white,
         bottom: TabBar(
           controller: _tabController,
-          indicatorColor: Colors.black,
-          labelColor: Colors.black,
+          indicatorColor: Colors.white,
+          labelColor: Colors.white,
           unselectedLabelColor: Colors.black,
           tabs: const [
             Tab(text: 'All Entries'),
@@ -91,7 +91,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.yellow,
+        foregroundColor: Colors.black,
         onPressed: () => Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => AddTimeEntryScreen()),
@@ -181,3 +182,4 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     return task.name;
   }
 }
+
