@@ -21,21 +21,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(providers: [
-      ChangeNotifierProvider(
-          create: (_) => TimeEntryProvider(localStorage)),
-    ], child: MaterialApp(
-      title: 'Expense Manager',
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => TimeEntryProvider(localStorage)),
+      ],
+      child: MaterialApp(
+        title: 'Expense Manager',
+        theme: ThemeData(
+          primarySwatch: Colors.teal,
+        ),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => HomeScreen(),
+          '/add_time_entry': (context) => AddTimeEntryScreen(),
+          '/manage_tasks': (context) => TaskManagementScreen(),
+          '/manage_projects': (context) => ProjectManagementScreen(),
+        },
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => HomeScreen(),
-        '/add_time_entry': (context) => AddTimeEntryScreen(),
-        '/manage_tasks': (context) => TaskManagementScreen(),
-        '/manage_projects': (context) => ProjectManagementScreen(),
-      },
-    ),);
+    );
   }
 }

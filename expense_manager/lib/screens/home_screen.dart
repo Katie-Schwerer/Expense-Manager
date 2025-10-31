@@ -15,7 +15,8 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -108,14 +109,70 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       builder: (context, timeEntryProvider, child) {
         final timeEntries = timeEntryProvider.entries;
         if (timeEntries.isEmpty) {
-          return const Center(child: Text('No time entries found.'));
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.hourglass_empty,
+                  size: 80,
+                  color: Colors.grey[400],
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'No time entries yet',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[600],
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Start tracking your time by adding your first entry',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey[500],
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 24),
+                ElevatedButton.icon(
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AddTimeEntryScreen()),
+                  ),
+                  icon: const Icon(Icons.add),
+                  label: const Text('Add Time Entry'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.teal,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 12),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'Tip: Use the menu to manage projects and tasks first',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey[400],
+                    fontStyle: FontStyle.italic,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          );
         }
         return ListView.builder(
           itemCount: timeEntries.length,
           itemBuilder: (context, index) {
             final entry = timeEntries[index];
             return ListTile(
-              title: Text('${getProjectNameById(entry.projectId, context)} - ${getTaskNameById(entry.taskId, context)}'),
+              title: Text(
+                  '${getProjectNameById(entry.projectId, context)} - ${getTaskNameById(entry.taskId, context)}'),
               subtitle: Text('Total Time: ${entry.totalTime} hours'
                   '\nDate: ${DateFormat.yMMMd().format(entry.date)}'
                   '\nNotes: ${entry.notes}'),
@@ -137,11 +194,67 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       builder: (context, timeEntryProvider, child) {
         final timeEntries = timeEntryProvider.entries;
         if (timeEntries.isEmpty) {
-          return const Center(child: Text('No time entries found.'));
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.hourglass_empty,
+                  size: 80,
+                  color: Colors.grey[400],
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'No time entries yet',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[600],
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Start tracking your time by adding your first entry',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey[500],
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 24),
+                ElevatedButton.icon(
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AddTimeEntryScreen()),
+                  ),
+                  icon: const Icon(Icons.add),
+                  label: const Text('Add Time Entry'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.teal,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 12),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'Tip: Use the menu to manage projects and tasks first',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey[400],
+                    fontStyle: FontStyle.italic,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          );
         }
 
         // Group entries by projectId
-        final groupedEntries = groupBy(timeEntries, (TimeEntry entry) => entry.projectId);
+        final groupedEntries =
+            groupBy(timeEntries, (TimeEntry entry) => entry.projectId);
 
         return ListView(
           children: groupedEntries.entries.map((group) {
@@ -173,13 +286,16 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   }
 
   String getProjectNameById(String projectId, BuildContext context) {
-    var project = Provider.of<TimeEntryProvider>(context, listen: false).project.firstWhere((proj) => proj.id == projectId);
+    var project = Provider.of<TimeEntryProvider>(context, listen: false)
+        .project
+        .firstWhere((proj) => proj.id == projectId);
     return project.name;
   }
 
   String getTaskNameById(String taskId, BuildContext context) {
-    var task = Provider.of<TimeEntryProvider>(context, listen: false).task.firstWhere((tsk) => tsk.id == taskId);
+    var task = Provider.of<TimeEntryProvider>(context, listen: false)
+        .task
+        .firstWhere((tsk) => tsk.id == taskId);
     return task.name;
   }
 }
-
