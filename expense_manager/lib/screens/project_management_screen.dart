@@ -47,6 +47,9 @@ class ProjectManagementScreen extends StatelessWidget {
                     },
                   ));
         },
+        child: const Icon(Icons.add),
+        backgroundColor: Colors.teal,
+        foregroundColor: Colors.white,
       ),
     );
   }

@@ -167,20 +167,37 @@ class _HomeScreenState extends State<HomeScreen>
           );
         }
         return ListView.builder(
+          padding: const EdgeInsets.all(8.0),
           itemCount: timeEntries.length,
           itemBuilder: (context, index) {
             final entry = timeEntries[index];
-            return ListTile(
-              title: Text(
-                  '${getProjectNameById(entry.projectId, context)} - ${getTaskNameById(entry.taskId, context)}'),
-              subtitle: Text('Total Time: ${entry.totalTime} hours'
-                  '\nDate: ${DateFormat.yMMMd().format(entry.date)}'
-                  '\nNotes: ${entry.notes}'),
-              trailing: IconButton(
-                icon: const Icon(Icons.delete, color: Colors.red),
-                onPressed: () {
-                  timeEntryProvider.deleteTimeEntry(entry.id);
-                },
+            return Container(
+              margin:
+                  const EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 1,
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: ListTile(
+                title: Text(
+                    '${getProjectNameById(entry.projectId, context)} - ${getTaskNameById(entry.taskId, context)}'),
+                subtitle: Text('Total Time: ${entry.totalTime} hours'
+                    '\nDate: ${DateFormat.yMMMd().format(entry.date)}'
+                    '\nNotes: ${entry.notes}'),
+                trailing: IconButton(
+                  icon: const Icon(Icons.delete, color: Colors.red),
+                  onPressed: () {
+                    timeEntryProvider.deleteTimeEntry(entry.id);
+                  },
+                ),
               ),
             );
           },
@@ -257,27 +274,60 @@ class _HomeScreenState extends State<HomeScreen>
             groupBy(timeEntries, (TimeEntry entry) => entry.projectId);
 
         return ListView(
+          padding: const EdgeInsets.all(8.0),
           children: groupedEntries.entries.map((group) {
             final projectId = group.key;
             final entries = group.value;
             final projectName = getProjectNameById(projectId, context);
 
-            return ExpansionTile(
-              title: Text(projectName),
-              children: entries.map((entry) {
-                return ListTile(
-                  title: Text('${getTaskNameById(entry.taskId, context)}'),
-                  subtitle: Text('Total Time: ${entry.totalTime} hours'
-                      '\nDate: ${DateFormat.yMMMd().format(entry.date)}'
-                      '\nNotes: ${entry.notes}'),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete, color: Colors.red),
-                    onPressed: () {
-                      timeEntryProvider.deleteTimeEntry(entry.id);
-                    },
+            return Container(
+              margin:
+                  const EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 1,
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
                   ),
-                );
-              }).toList(),
+                ],
+              ),
+              child: ExpansionTile(
+                title: Text(projectName),
+                children: entries.map((entry) {
+                  return Container(
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 2.0, horizontal: 8.0),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[50],
+                      borderRadius: BorderRadius.circular(6.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.1),
+                          spreadRadius: 0.5,
+                          blurRadius: 2,
+                          offset: const Offset(0, 1),
+                        ),
+                      ],
+                    ),
+                    child: ListTile(
+                      title: Text('${getTaskNameById(entry.taskId, context)}'),
+                      subtitle: Text('Total Time: ${entry.totalTime} hours'
+                          '\nDate: ${DateFormat.yMMMd().format(entry.date)}'
+                          '\nNotes: ${entry.notes}'),
+                      trailing: IconButton(
+                        icon: const Icon(Icons.delete, color: Colors.red),
+                        onPressed: () {
+                          timeEntryProvider.deleteTimeEntry(entry.id);
+                        },
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
             );
           }).toList(),
         );

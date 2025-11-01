@@ -49,10 +49,6 @@ class _AddTimeEntryScreenState extends State<AddTimeEntryScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            buildTextField(_timeController, 'Total Time (hours)',
-                TextInputType.numberWithOptions(decimal: true)),
-            buildTextField(_notesController, 'Notes', TextInputType.text),
-            buildDateField(_selectedDate),
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
               child: buildProjectDropdown(timeEntryProvider),
@@ -61,6 +57,10 @@ class _AddTimeEntryScreenState extends State<AddTimeEntryScreen> {
               padding: const EdgeInsets.only(bottom: 8.0),
               child: buildTaskDropdown(timeEntryProvider),
             ),
+            buildTextField(_timeController, 'Total Time (hours)',
+                const TextInputType.numberWithOptions(decimal: true)),
+            buildTextField(_notesController, 'Notes',  TextInputType.text),
+            buildDateField(_selectedDate),
           ],
         ),
       ),
@@ -70,7 +70,7 @@ class _AddTimeEntryScreenState extends State<AddTimeEntryScreen> {
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.teal,
             foregroundColor: Colors.white,
-            minimumSize: Size(double.infinity, 50),
+            minimumSize: const Size(double.infinity, 50),
           ),
           onPressed: _saveTimeEntry,
           child: const Text('Save Time Entry'),
