@@ -11,13 +11,13 @@ class TimeEntryProvider with ChangeNotifier {
   List<TimeEntry> _entries = [];
 
   // List of project
-  final List<Project> _projects = [
+  List<Project> _projects = [
     Project(id: '1', name: "Project Alpha"),
     Project(id: '2', name: "Project Beta"),
     Project(id: '3', name: "Project Gamma"),
   ];
 
-  final List<Task> _task = [
+  List<Task> _task = [
     Task(id: '1', name: "Task A"),
     Task(id: '2', name: "Task B"),
     Task(id: '3', name: "Task C")
@@ -36,6 +36,16 @@ class TimeEntryProvider with ChangeNotifier {
     if (storedExtries != null) {
       _entries = List<TimeEntry>.from(
           (storedExtries as List).map((item) => TimeEntry.fromJson(item)));
+    }
+    var storedProjects = storage.getItem('projects');
+    if (storedProjects != null) {
+      _projects = List<Project>.from(
+          (storedProjects as List).map((item) => Project.fromJson(item)));
+    }
+    var storedTasks = storage.getItem('tasks');
+    if (storedTasks != null) {
+      _task = List<Task>.from(
+          (storedTasks as List).map((item) => Task.fromJson(item)));
     }
     notifyListeners();
   }
